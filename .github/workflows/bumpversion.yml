@@ -19,14 +19,15 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.67.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: anothrNick/github-tag-action@1.67.0
+      id: tag_version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
     - name: prints next version
       run: echo ${{ steps.tag_version.outputs.new_tag}}
       
-  
+
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -36,5 +37,5 @@ jobs:
     - uses: actions/checkout@v3
     - uses: ncipollo/release-action@v1
       with:
-        tag: ${{ steps.build.outputs.new_tag }}
+        tag: ${{ steps.tag_version.outputs.new_tag }}
         artifacts: "release.tar.gz,foo/*.txt"
