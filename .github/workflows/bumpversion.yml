@@ -23,7 +23,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
-        PRERELEASE: true
 
   tagged-release:
     needs: build
@@ -32,6 +31,7 @@ jobs:
     steps:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
+          automatic_release_tag: ${{needs.build.outputs.tag}}
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
