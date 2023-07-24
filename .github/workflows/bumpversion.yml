@@ -10,8 +10,6 @@ jobs:
   build:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-22.04
-    outputs: 
-      output1: ${{ steps.step1.outputs.new_tag }}
     permissions:
       contents: write
     steps:
@@ -28,7 +26,9 @@ jobs:
         WITH_V: true
 
     - id: step1
-      run: echo "${{ steps.tag_version.outputs.new_tag}}" >> "$GITHUB_OUTPUT"
+      run: echo "${{ steps.tag_version.outputs.new_tag}}"
+    outputs: 
+      output1: ${{ steps.step1.outputs.new_tag }}
       
 
   release:
