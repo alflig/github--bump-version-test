@@ -34,7 +34,7 @@ jobs:
     permissions:
       contents: write
     env:
-      OUTPUT1: ${{needs.build.outputs.output1}}
+      OUTPUT1: ${{ needs.build.outputs.output1 }}
     steps:
       - name: print version number
         run: echo ${{ env.OUTPUT1 }}
