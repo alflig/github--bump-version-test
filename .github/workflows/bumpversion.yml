@@ -2,6 +2,9 @@ name: bump version reusable workflow
 
 on:
   workflow_call:
+    secrets:
+        token:
+          required: true
 
 jobs:
   build:
