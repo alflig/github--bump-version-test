@@ -1,0 +1,14 @@
+name: automatic tagging and release
+on:
+    pull_request:
+      types:
+        - closed
+      branches:
+        - main
+jobs:
+  call-workflow-passing-data:
+    permissions:
+      contents: write
+    uses: alflig/github--bump-version-test/.github/workflows/bumpversion.yml@main
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
